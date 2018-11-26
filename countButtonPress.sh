@@ -1,6 +1,7 @@
 #!/bin/bash
 
 counter=0
+bCounter=0
 read=$(gpio read 5)
 
 while true
@@ -8,8 +9,11 @@ do
     read=$(gpio read 5)
     if [ "$read" -eq 0 ]
     then
-        echo $counter
+        
         ((counter++))
+	./waitForButtonPress.sh
+	((bCounter++))
+	echo "$bCounter"
         ./setbits.sh "$counter"
 
         if [ "$counter" -eq 16 ]
